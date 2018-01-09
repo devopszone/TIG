@@ -34,10 +34,10 @@
         },
 	"ApacheIP": {
             "value": "10.22.33.44"
-        }
+        },
 	"TomcatIP": {
             "value": "10.1.1.20"
-        }
+        },
 	"RedisIP": {
             "value": "10.1.1.30"
         }
