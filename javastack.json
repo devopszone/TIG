@@ -44,6 +44,42 @@
         "description": "To get JavaJvm ip address"
       }
     },
+    "ApacheConfig": {
+      "type": "string",
+      "metadata": {
+        "description": "To get yes or no value for ApacheConfig"
+      }
+    },
+    "TomcatConfig": {
+      "type": "string",
+      "metadata": {
+        "description": "To get yes or no value for TomcatConfig"
+      }
+    },
+    "RedisConfig": {
+      "type": "string",
+      "metadata": {
+        "description": "To get yes or no value for RedisConfig"
+      }
+    },
+     "ApacheIP": {
+      "type": "string",
+      "metadata": {
+        "description": "To get Apache ip address"
+      }
+    },
+    "TomcatIP": {
+      "type": "string",
+      "metadata": {
+        "description": "To get Tomcat ip address"
+      }
+    },
+    "RedisIP": {
+      "type": "string",
+      "metadata": {
+        "description": "To get Redis ip address"
+      }
+    },
     "ubuntuOSVersion": {
       "type": "string",
       "defaultValue": "16.04.0-LTS",
@@ -212,9 +248,9 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/sankara7/Ansible/master/script1.sh"
+            "https://raw.githubusercontent.com/devopszone/TIG/master/script.sh"
           ],
-           "commandToExecute": "[concat('sh script1.sh',' ',parameters('Java'),' ',parameters('Docker'),' ',parameters('Hostmetrics'),' ',parameters('JavaIP'))]"
+           "commandToExecute": "[concat('sh script1.sh',' ',parameters('Java'),' ',parameters('Docker'),' ',parameters('Hostmetrics'),' ',parameters('JavaIP'),' ',parameters('ApacheConfig'),' ',parameters('TomcatConfig'),' ',parameters('RedisConfig'),' ',parameters('ApacheIP'),' ',parameters('TomcatIP'),' ',parameters('RedisIP'))]"
         }
       }
     }
@@ -230,4 +266,6 @@
     }
   }
 }
+
+
 

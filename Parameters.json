@@ -23,7 +23,24 @@
         "JavaIP": {
             "value": "10.1.1.10"
         }
-		
+	"ApacheConfig": {
+            "value": "Yes"
+        },
+	"TomcatConfig": {
+            "value": "Yes"
+        },
+	"RedisConfig": {
+            "value": "Yes"
+        },
+	"ApacheIP": {
+            "value": "10.22.33.44"
+        }
+	"TomcatIP": {
+            "value": "10.1.1.20"
+        }
+	"RedisIP": {
+            "value": "10.1.1.30"
+        }
    }
 }
 
