@@ -250,7 +250,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/devopszone/TIG/master/script.sh"
           ],
-           "commandToExecute": "[concat('sh script1.sh',' ',parameters('Java'),' ',parameters('Docker'),' ',parameters('Hostmetrics'),' ',parameters('JavaIP'),' ',parameters('ApacheConfig'),' ',parameters('TomcatConfig'),' ',parameters('RedisConfig'),' ',parameters('ApacheIP'),' ',parameters('TomcatIP'),' ',parameters('RedisIP'))]"
+           "commandToExecute": "[concat('sh script.sh',' ',parameters('Java'),' ',parameters('Docker'),' ',parameters('Hostmetrics'),' ',parameters('JavaIP'),' ',parameters('ApacheConfig'),' ',parameters('TomcatConfig'),' ',parameters('RedisConfig'),' ',parameters('ApacheIP'),' ',parameters('TomcatIP'),' ',parameters('RedisIP'))]"
         }
       }
     }
