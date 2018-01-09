@@ -11,7 +11,7 @@ RedisConfig=$7
 ApacheIP=$8
 TomcatIP=$9
 RedisIP=$10
-var=$(dig +short myip.opendns.com @resolver1.opendns.com)
+HostIP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 
 apt-get update
