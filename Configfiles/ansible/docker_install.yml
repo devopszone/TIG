@@ -1,0 +1,152 @@
+---
+
+- hosts: localhost
+
+  become: yes
+  connection: local
+  tasks:
+    
+  - name: "Download docker script"
+    command: curl -fsSL get.docker.com -o get-docker.sh
+    args:
+      chdir: /home/
+  - name: "run docker script"
+    script: /home/get-docker.sh
+  - name: "start Docker"
+    service:
+      name: docker
+      state: started
+  - name: "install pip"
+    apt:
+      name: python-pip
+      state: present
+  - name: "install docker-compose"
+    command: pip install docker-compose
+#  - name: "download Configfiles"
+#    get_url: 
+#      url:  https://github.com/sankara7/Ansible/raw/master/Configfiles.zip
+#      dest: /home/
+#  - name: "unzip Configfiles"
+#    unarchive:
+#      src: /home/Configfiles.zip
+#      dest: /home/
+#  - name: "get the  host ip"
+#    shell: ip addr show |grep "inet " |grep -v 127.0.0. |head -1|cut -d" " -f6|cut -d/ -f1
+#    register: HOSTDBIP 
+#  - debug:
+#      var: HOSTDBIP.stdout
+  - name: "remove existing telegraf file"
+    file:
+      path: /home/Configfiles/telegraf.conf
+      state: absent
+  
+  - name: "replace telegraf.conf with required values"
+    template:
+      src: telegraf.conf.jk2
+      dest: /home/Configfiles/temp.conf
+  - name: "append telegraf.conf with content of tempfile"
+    shell: cat temp.conf >> telegraf.conf
+    args: 
+       chdir: "/home/Configfiles/" 
+
+  - name: "replace telegraf.conf file with $Hostmetric values"
+    template:
+      src: telegraf.conf_hostmetric.jk2
+      dest: /home/Configfiles/temp.conf
+    when: Hostmetrics == 'yes'
+    register: result
+
+        
+  - name: "append telegraf.conf with Hostmetrics"
+    shell: cat temp.conf >> telegraf.conf
+    args:
+       chdir: "/home/Configfiles/"
+    when: Hostmetrics == 'yes'
+
+  - name: "replace telegraf.conf file with $Jolokia values"
+    template:
+      src: telegraf.conf_jolokia.jk2
+      dest: /home/Configfiles/temp.conf
+    when: JavaIP is defined and Java == "yes"
+  - name: "append telegraf.conf with jolokia"
+    shell: cat temp.conf >> telegraf.conf
+    args: 
+      chdir: "/home/Configfiles/"
+    when: JavaIP is defined and Java == "yes"
+
+  - name: "replace telegraf.conf file with $redisConfig values"
+    template:
+      src: telegraf.conf_redisconfig.jk2
+      dest: /home/Configfiles/temp.conf
+    when: RedisIP is defined and RedisConfig == "yes"
+  - name: "append telegraf.conf with RedisConfig"
+    shell: cat temp.conf >> telegraf.conf
+    args:
+      chdir: "/home/Configfiles/"
+    when: RedisIP is defined and RedisConfig == 'yes'
+
+  - name: "replace telegraf.conf file with $TomcatConfig values"
+    template:
+      src: telegraf.conf_tomcatconfig.jk2
+      dest: /home/Configfiles/temp.conf
+    when: TomcatIP is defined and TomcatConfig == 'yes'
+  - name: "append telegraf.conf with TomcatConfig"
+    shell: cat temp.conf >> telegraf.conf
+    args:
+      chdir: "/home/Configfiles/"
+    when: TomcatIP is defined and TomcatConfig == 'yes'
+  - name: "change file permission"
+    file:
+      path: /home/Configfiles/telegraf.conf
+      mode: 0644
+
+
+  
+  - name: "replace grafanacfg.output file with values"
+    template:
+      src: grafanacfg.input.jk2
+      dest: /home/Configfiles/grafanacfg.output
+   
+  
+  - name: "docker build"
+    command: docker-compose build
+    args:
+      chdir: /home/Configfiles/
+  - name: "docker up"
+    command: docker-compose up -d
+    args:
+      chdir: /home/Configfiles/
+  - name: "create database in influxdb"
+    command: curl -i -XPOST http://{{ HostIP }}:8086/query --data-urlencode "q=CREATE DATABASE {{ DBName }}"
+
+  - name: "check if grafana can be accessed"
+    command: curl  http://{{ HostIP }}:3000/api/org -u {{ grafana_user }}:{{ grafana_passwd }}
+  - name: "create datasoure in grafana"
+    command: "curl --header 'Content-Type: application/json' --header 'Accept: application/json' -d@/home/Configfiles/grafanacfg.output http://{{ HostIP }}:3000/api/datasources -u {{ grafana_user }}:{{ grafana_passwd }}"
+
+  - name: create TelegrafHost dashboard in grafana using the josnfile
+    command: "curl --header 'Content-Type: application/json' --header 'Accept: application/json' -d@/home/Configfiles/dashboards/TelegrafHostMetrics.json  http://{{ HostIP }}:3000/api/dashboards/db -u {{ grafana_user }}:{{ grafana_passwd }}"
+
+  - name: create DockerMetrics dashboard in grafana using the josnfile
+    command: "curl --header 'Content-Type: application/json' --header 'Accept: application/json' -d@/home/Configfiles/dashboards/DockerMetricsperContainer.json  http://{{ HostIP }}:3000/api/dashboards/db -u {{ grafana_user }}:{{ grafana_passwd }}"
+  
+  - name: create redis dashboard in grafana using the josnfile
+    command: "curl --header 'Content-Type: application/json' --header 'Accept: application/json' -d@/home/Configfiles/dashboards/redis.json  http://{{ HostIP }}:3000/api/dashboards/db -u {{ grafana_user }}:{{ grafana_passwd }}"
+
+  - name: create javastack bashboard in grafana 
+    command: "curl --header 'Content-Type: application/json' --header 'Accept: application/json' -d@/home/Configfiles/dashboards/javastack.json  http://{{ HostIP }}:3000/api/dashboards/db -u {{ grafana_user }}:{{ grafana_passwd }}"
+  - debug:
+      var: HostIP  
+ 
+ 
+ 
+  vars:
+    DBName: JAVASTACK
+    datasrcname: JAVASTACK 
+    grafana_user: admin
+    grafana_passwd: YOUR_PASSWORD
+    influxdb_user: root
+    influxdb_password: root
+
+
+

@@ -1,0 +1,29 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {        
+        "adminUsername": {
+            "value": "user123"
+        },
+        "adminPassword": {
+            "value": "testpass@123"
+        },
+        "LabelPrefix": {
+            "value": "ans4"
+        },
+        "Java": {
+            "value": "yes"
+        },
+        "Docker": {
+            "value": "yes"
+        },
+        "Hostmetrics": {
+            "value": "yes"
+        },
+        "JavaIP": {
+            "value": "10.1.1.10"
+        }
+		
+   }
+}
+

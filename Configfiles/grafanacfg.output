@@ -1,0 +1,12 @@
+ {
+        "orgId": 1,
+        "name": "kafka",
+        "type": "influxdb",       
+        "access": "direct",
+        "url": "http://10.106.131.202:8086",
+        "password": "root",
+        "user": "root",
+        "database": "kafka",
+        "basicAuth": false,
+        "isDefault": true       
+  }
