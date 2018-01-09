@@ -22,7 +22,7 @@
         },
         "JavaIP": {
             "value": "10.1.1.10"
-        }
+        },
 	"ApacheConfig": {
             "value": "Yes"
         },
