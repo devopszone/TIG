@@ -20,9 +20,9 @@ apt-add-repository ppa:ansible/ansible -y
 apt-get update
 apt-get install ansible -y
 apt-get install unzip -y
-
+cd /home/
 wget https://github.com/devopszone/TIG/blob/master/Configfiles.zip 
-unzip Configfiles.zip -d /home
+unzip /home/Configfiles.zip -d /home
 
 
 
