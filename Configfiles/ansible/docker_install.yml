@@ -1,11 +1,9 @@
 ---
 
 - hosts: localhost
-
-  become: yes
   connection: local
+  gather_facts: no
   tasks:
-    
   - name: "Download docker script"
     command: curl -fsSL get.docker.com -o get-docker.sh
     args:
