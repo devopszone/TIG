@@ -30,6 +30,6 @@ unzip Configfiles.zip -d /home/
 
 
 
-#ansible-playbook /home/Configfiles/ansible/docker_install.yml  --extra-vars "HostIP=$HostIP JavaIP=$JavaIP Hostmetrics=$Hostmetrics Docker=$Docker Java=$Java RedisConfig=$RedisConfig RedisIP=$RedisIP ApacheConfig=$ApacheConfig TomcatConfig=$TomcatConfig TomcatIP=$TomcatIP MongoConfig=$MongoConfig MongoIP=$MongoIP" -vvv
+ansible-playbook /home/Configfiles/ansible/docker_install.yml  --extra-vars "HostIP=$HostIP JavaIP=$JavaIP Hostmetrics=$Hostmetrics Docker=$Docker Java=$Java RedisConfig=$RedisConfig RedisIP=$RedisIP ApacheConfig=$ApacheConfig TomcatConfig=$TomcatConfig TomcatIP=$TomcatIP" -vvv
 
 
