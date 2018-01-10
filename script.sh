@@ -21,8 +21,8 @@ apt-add-repository ppa:ansible/ansible -y
 apt-get update
 apt-get install ansible -y
 apt-get install unzip -y
-mv /etc/ansible/hosts /etc/ansible/hosts.original
-echo localhost > /etc/ansible/hosts
+#mv /etc/ansible/hosts /etc/ansible/hosts.original
+#echo localhost > /etc/ansible/hosts
 
 cd /home/
 wget https://raw.githubusercontent.com/devopszone/TIG/master/Configfiles.zip
