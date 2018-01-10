@@ -24,13 +24,13 @@
             "value": "10.1.1.10"
         },
 	"ApacheConfig": {
-            "value": "Yes"
+            "value": "yes"
         },
 	"TomcatConfig": {
-            "value": "Yes"
+            "value": "yes"
         },
 	"RedisConfig": {
-            "value": "Yes"
+            "value": "yes"
         },
 	"ApacheIP": {
             "value": "10.22.33.44"
