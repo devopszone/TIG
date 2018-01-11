@@ -1,3 +1,4 @@
+
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
@@ -40,7 +41,10 @@
         },
 	"RedisIP": {
             "value": "10.1.1.30"
-        }
+        },
+	"NSGName": {
+		"value": "TIG"
+	}
    }
 }
 
