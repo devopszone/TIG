@@ -18,6 +18,9 @@
     apt:
       name: python-pip
       state: present
+    register: results
+  - debug:
+      var: results
   - name: "install docker-compose"
     command: pip install docker-compose
 #  - name: "download Configfiles"
