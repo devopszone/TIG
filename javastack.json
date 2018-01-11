@@ -241,18 +241,18 @@
       }
     },
 	{
-"apiVersion": "2017-03-01",
-"type": "Microsoft.Network/networkSecurityGroups",
-"name": "[parameters('NSGName')]",
-"location": "[resourceGroup().location]",
-"tags": {
-  "displayName": "NSG - TIG"
+      "apiVersion": "2017-03-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('NSGName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+      "displayName": "NSG - TIG"
 },
-"properties": {
-  "securityRules": [
-    {
-      "name": "influx",
       "properties": {
+      "securityRules": [
+    {
+        "name": "influx",
+        "properties": {
         "description": "Allow influx",
         "protocol": "Tcp",
         "sourcePortRange": "*",
@@ -265,8 +265,8 @@
       }
     },
     {
-      "name": "influxservice",
-      "properties": {
+        "name": "influxservice",
+        "properties": {
         "description": "Allow WEB",
         "protocol": "Tcp",
         "sourcePortRange": "*",
@@ -279,8 +279,8 @@
       }
     },
 	{
-      "name": "grafana",
-      "properties": {
+        "name": "grafana",
+        "properties": {
         "description": "Allow WEB",
         "protocol": "Tcp",
         "sourcePortRange": "*",
