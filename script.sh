@@ -28,7 +28,7 @@ cd /home/
 wget https://raw.githubusercontent.com/devopszone/TIG/master/Configfiles.zip
 unzip Configfiles.zip -d /home/
 
-ansible-playbook /home/Configfiles/ansible/docker_install.yml 
+HOME=/root ansible-playbook /home/Configfiles/ansible/docker_install.yml 
 
 #ansible-playbook /home/Configfiles/ansible/docker_install.yml  --extra-vars "HostIP=$HostIP JavaIP=$JavaIP Hostmetrics=$Hostmetrics Docker=$Docker Java=$Java RedisConfig=$RedisConfig RedisIP=$RedisIP ApacheConfig=$ApacheConfig TomcatConfig=$TomcatConfig TomcatIP=$TomcatIP" -vvv
 
