@@ -28,7 +28,7 @@
 
 [[outputs.influxdb]]
   urls = ["http://influxdb:8086"]
-  database = "kafka"
+  database ="{{ DBName }}"
   retention_policy = ""
   write_consistency = "any"
   timeout = "5s"

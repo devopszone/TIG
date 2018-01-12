@@ -1,7 +1,7 @@
 ---
 
 - hosts: localhost
-  connection: localhost
+  connection: local
   
   tasks:
   - name: "Download docker script"
@@ -23,19 +23,9 @@
       var: results
   - name: "install docker-compose"
     command: pip install docker-compose
-#  - name: "download Configfiles"
-#    get_url: 
-#      url:  https://github.com/sankara7/Ansible/raw/master/Configfiles.zip
-#      dest: /home/
-#  - name: "unzip Configfiles"
-#    unarchive:
-#      src: /home/Configfiles.zip
-#      dest: /home/
-#  - name: "get the  host ip"
-#    shell: ip addr show |grep "inet " |grep -v 127.0.0. |head -1|cut -d" " -f6|cut -d/ -f1
-#    register: HOSTDBIP 
-#  - debug:
-#      var: HOSTDBIP.stdout
+
+  - debug:
+      var: HostIP.stdout
   - name: "remove existing telegraf file"
     file:
       path: /home/Configfiles/telegraf.conf
@@ -121,7 +111,7 @@
     command: curl -i -XPOST http://{{ HostIP }}:8086/query --data-urlencode "q=CREATE DATABASE {{ DBName }}"
 
   - name: "check if grafana can be accessed"
-    command: curl  http://{{ HostIP }}:3000/api/org -u {{ grafana_user }}:{{ grafana_passwd }}
+    command: curl  http://{{ HostIP.stdout }}:3000/api/org -u {{ grafana_user }}:{{ grafana_passwd }}
   - name: "create datasoure in grafana"
     command: "curl --header 'Content-Type: application/json' --header 'Accept: application/json' -d@/home/Configfiles/grafanacfg.output http://{{ HostIP }}:3000/api/datasources -u {{ grafana_user }}:{{ grafana_passwd }}"
 
@@ -148,6 +138,12 @@
     grafana_passwd: YOUR_PASSWORD
     influxdb_user: root
     influxdb_password: root
-
+    Hostmetrics: "yes"
+    Java: "yes"
+    TomcatConfig: "yes"
+    RedisConfig: "yes"
+    JavaIP: 10.2.0.4
+    TomcatIP: 10.2.3.5
+    RedisIP: 10.106.131.202 
 
 
